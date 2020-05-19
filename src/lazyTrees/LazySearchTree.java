@@ -82,7 +82,7 @@ implements Cloneable
 
 	public Object clone() throws CloneNotSupportedException
 	{
-		week05_part01.FHsearch_tree<E> newObject = (week05_part01.FHsearch_tree<E>)super.clone();
+		LazySearchTree<E> newObject = (LazySearchTree<E>)super.clone();
 		newObject.clear();  // can't point to other's data
 
 		newObject.mRoot = cloneSubtree(mRoot);
