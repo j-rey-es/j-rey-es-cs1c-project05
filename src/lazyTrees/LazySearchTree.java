@@ -208,4 +208,24 @@ implements Cloneable
 		rightHeight = findHeight(treeNode.rtChild, height);
 		return (leftHeight > rightHeight)? leftHeight : rightHeight;
 	}
+
+	private class LazySTNode
+	{
+		// use public access so the tree or other classes can access members
+		public lazyTrees.LazySTNode<E> lftChild, rtChild;
+		public E data;
+
+		public LazySTNode(E d, lazyTrees.LazySTNode<E> lft, lazyTrees.LazySTNode<E> rt )
+		{
+			lftChild = lft;
+			rtChild = rt;
+			data = d;
+		}
+
+		public LazySTNode()
+		{
+			this(null, null, null);
+		}
+	}
+
 }

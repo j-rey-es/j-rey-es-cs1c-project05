@@ -1,6 +1,6 @@
 package lazyTrees;
 
-public class LazySTNode<E extends Comparable< ? super E > >
+private class LazySTNode
 {
    // use public access so the tree or other classes can access members 
    public LazySTNode<E> lftChild, rtChild;
