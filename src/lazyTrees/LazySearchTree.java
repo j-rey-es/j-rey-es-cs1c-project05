@@ -6,7 +6,7 @@ public class LazySearchTree<E extends Comparable< ? super E > >
 implements Cloneable
 {
 	protected int mSize;
-	protected LazySTNode<E> mRoot;
+	protected LazySTNode mRoot;
 
 	public LazySearchTree()
 	{ 
@@ -50,7 +50,7 @@ implements Cloneable
 
 	public E find( E x )
 	{
-		LazySTNode<E> resultNode;
+		LazySTNode resultNode;
 		resultNode = find(mRoot, x);
 		if (resultNode == null)
 			throw new NoSuchElementException();
@@ -92,7 +92,7 @@ implements Cloneable
 	}
 
 	// private helper methods ----------------------------------------
-	protected LazySTNode<E> findMin(LazySTNode<E> root )
+	protected LazySTNode findMin(LazySTNode root )
 	{
 		if (root == null)
 			return null;
@@ -101,7 +101,7 @@ implements Cloneable
 		return findMin(root.lftChild);
 	}
 
-	protected LazySTNode<E> findMax(LazySTNode<E> root )
+	protected LazySTNode findMax(LazySTNode root )
 	{
 		if (root == null)
 			return null;
@@ -110,14 +110,14 @@ implements Cloneable
 		return findMax(root.rtChild);
 	}
 
-	protected LazySTNode<E> insert(LazySTNode<E> root, E x )
+	protected LazySTNode insert(LazySTNode root, E x )
 	{
 		int compareResult;  // avoid multiple calls to compareTo()
 
 		if (root == null)
 		{
 			mSize++;
-			return new LazySTNode<E>(x, null, null);
+			return new LazySTNode(x, null, null);
 		}
 
 		compareResult = x.compareTo(root.data); 
@@ -129,7 +129,7 @@ implements Cloneable
 		return root;
 	}
 
-	protected LazySTNode<E> remove(LazySTNode<E> root, E x  )
+	protected LazySTNode remove(LazySTNode root, E x  )
 	{
 		int compareResult;  // avoid multiple calls to compareTo()
 
@@ -158,7 +158,7 @@ implements Cloneable
 	}
 
 	protected <F extends Traverser<? super E>> 
-	void traverse(F func, LazySTNode<E> treeNode)
+	void traverse(F func, LazySTNode treeNode)
 	{
 		if (treeNode == null)
 			return;
@@ -168,7 +168,7 @@ implements Cloneable
 		traverse(func, treeNode.rtChild);
 	}
 
-	protected LazySTNode<E> find(LazySTNode<E> root, E x )
+	protected LazySTNode find(LazySTNode root, E x )
 	{
 		int compareResult;  // avoid multiple calls to compareTo()
 
@@ -183,13 +183,13 @@ implements Cloneable
 		return root;   // found
 	}
 
-	protected LazySTNode<E> cloneSubtree(LazySTNode<E> root)
+	protected LazySTNode cloneSubtree(LazySTNode root)
 	{
-		LazySTNode<E> newNode;
+		LazySTNode newNode;
 		if (root == null)
 			return null;
 
-		newNode = new LazySTNode<E>
+		newNode = new LazySTNode
 		(
 				root.data, 
 				cloneSubtree(root.lftChild), 
@@ -198,7 +198,7 @@ implements Cloneable
 		return newNode;
 	}
 
-	protected int findHeight(LazySTNode<E> treeNode, int height )
+	protected int findHeight(LazySTNode treeNode, int height )
 	{
 		int leftHeight, rightHeight;
 		if (treeNode == null)
@@ -212,10 +212,10 @@ implements Cloneable
 	private class LazySTNode
 	{
 		// use public access so the tree or other classes can access members
-		public lazyTrees.LazySTNode<E> lftChild, rtChild;
+		public lazyTrees.LazySTNode lftChild, rtChild;
 		public E data;
 
-		public LazySTNode(E d, lazyTrees.LazySTNode<E> lft, lazyTrees.LazySTNode<E> rt )
+		public LazySTNode(E d, lazyTrees.LazySTNode lft, lazyTrees.LazySTNode rt )
 		{
 			lftChild = lft;
 			rtChild = rt;
