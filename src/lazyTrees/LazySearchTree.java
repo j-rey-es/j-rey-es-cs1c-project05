@@ -118,9 +118,9 @@ public class LazySearchTree<E extends Comparable< ? super E > >
      */
     public boolean remove( E x )
     {
-        int oldSize = mSizeHard;
+        int oldSize = mSize;
         remove(mRoot, x);
-        return (mSizeHard != oldSize);
+        return (mSize != oldSize);
     }
 
     /**
@@ -229,7 +229,7 @@ public class LazySearchTree<E extends Comparable< ? super E > >
      * @param x, Object to remove
      * @throws NoSuchElementException
      */
-    void remove(LazySTNode root, E x  ) throws NoSuchElementException
+    protected void remove(LazySTNode root, E x  ) throws NoSuchElementException
     {
         int compareResult;  // avoid multiple calls to compareTo()
 
@@ -238,21 +238,13 @@ public class LazySearchTree<E extends Comparable< ? super E > >
 
         compareResult = x.compareTo(root.data);
         if ( compareResult < 0 )
-            root.lftChild = remove(root.lftChild, x);
+            remove(root.lftChild,x);
         else if ( compareResult > 0 )
-            root.rtChild = remove(root.rtChild, x);
-
-            // found the node
-        else if (root.lftChild != null && root.rtChild != null)
+            remove(root.rtChild, x);
+        else if (compareResult == 0 && !root.deleted)
         {
-            root.data = findMin(root.rtChild).data;
-            root.rtChild = remove(root.rtChild, root.data);
-        }
-        else
-        {
-            root =
-                    (root.lftChild != null)? root.lftChild : root.rtChild;
-            mSizeHard--;
+            root.deleted = true;
+            mSize--;
         }
     }
 
