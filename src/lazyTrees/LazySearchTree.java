@@ -207,7 +207,7 @@ public class LazySearchTree<E extends Comparable< ? super E > >
         {
             mSize++;
             mSizeHard++;
-            return new LazySTNode(x, null, null);
+            return new LazySTNode(x, null, null,false);
         }
 
         compareResult = x.compareTo(root.data);
@@ -328,9 +328,9 @@ public class LazySearchTree<E extends Comparable< ? super E > >
         newNode = new LazySTNode
                 (
                         root.data,
-                        root.deleted,
                         cloneSubtree(root.lftChild),
-                        cloneSubtree(root.rtChild)
+                        cloneSubtree(root.rtChild),
+                        root.deleted
                 );
         return newNode;
     }

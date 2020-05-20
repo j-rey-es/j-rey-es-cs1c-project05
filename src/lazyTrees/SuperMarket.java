@@ -11,9 +11,9 @@ import java.util.Scanner;
  * Implements BST with lazy deletion to keep track of total inventory ("deleted" + non deleted) 
  * and current inventory (non deleted only).
  *
- * @author Foothill College, [YOUR NAME HERE]
+ * @author Foothill College, Joel R
  */
-public class SuperMarket 
+public class SuperMarket
 {
 	public static final boolean SHOW_DETAILS = true;
 
