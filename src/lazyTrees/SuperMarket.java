@@ -184,10 +184,10 @@ public class SuperMarket
 		final String TESTFILE = "resources/inventory_log.txt";	// Directory path for plain-text file
 
 		// NOTE: Short inventory file to test for removal of root node from LazySearchTree
-		//final String TESTFILE = "resources/inventory_short.txt";	
+		//final String TESTFILE = "resources/inventory_short.txt";
 
 		// NOTE: An example of testing the boundary condition when removing an item that may not exist
-		///final String TESTFILE = "resources/inventory_invalid_removal.txt";	
+		//final String TESTFILE = "resources/inventory_invalid_removal.txt";
 
 		System.out.printf("Test file: %s \n", TESTFILE);
 
