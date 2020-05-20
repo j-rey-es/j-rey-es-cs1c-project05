@@ -268,6 +268,7 @@ public class LazySearchTree<E extends Comparable< ? super E > >
             return;
 
         traverseHard(func, treeNode.lftChild);
+        func.visit(treeNode.data);
         traverseHard(func, treeNode.rtChild);
     }
 
