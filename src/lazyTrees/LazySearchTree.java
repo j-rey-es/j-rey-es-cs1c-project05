@@ -302,7 +302,7 @@ public class LazySearchTree<E extends Comparable< ? super E > >
     {
         int compareResult;  // avoid multiple calls to compareTo()
 
-        if (root == null || root.deleted)
+        if (root == null)
             return null;
 
         compareResult = x.compareTo(root.data);
@@ -310,6 +310,8 @@ public class LazySearchTree<E extends Comparable< ? super E > >
             return find(root.lftChild, x);
         if (compareResult > 0)
             return find(root.rtChild, x);
+        if (compareResult == 0 && root.deleted)
+            return null;
         return root;   // found
     }
 
