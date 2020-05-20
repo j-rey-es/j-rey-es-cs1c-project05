@@ -7,12 +7,16 @@ public class LazySearchTree<E extends Comparable< ? super E > >
 {
     protected int mSize;
     protected LazySTNode mRoot;
+    protected int mSizeHard;
 
     public LazySearchTree() { clear(); }
     public boolean empty() { return (mSize == 0); }
     public int size() { return mSize; }
     public void clear() { mSize = 0; mRoot = null; }
     public int showHeight() { return findHeight(mRoot, -1); }
+    public int mSizeHard() {
+        return mSizeHard;
+    }
 
     public E findMin()
     {
@@ -45,6 +49,11 @@ public class LazySearchTree<E extends Comparable< ? super E > >
         return (mSize != oldSize);
     }
 
+    /** TODO Implement soft delete
+     *
+     * @param x
+     * @return
+     */
     public boolean remove( E x )
     {
         int oldSize = mSize;
@@ -53,9 +62,9 @@ public class LazySearchTree<E extends Comparable< ? super E > >
     }
 
     public < F extends Traverser<? super E > >
-    void traverse(F func)
+    void traverseHard(F func)
     {
-        traverse(func, mRoot);
+        traverseHard(func, mRoot);
     }
 
     public Object clone() throws CloneNotSupportedException
@@ -70,6 +79,12 @@ public class LazySearchTree<E extends Comparable< ? super E > >
     }
 
     // private helper methods ----------------------------------------
+
+    /** TODO: Implement lazy deletion
+     *
+     * @param root
+     * @return
+     */
     protected LazySTNode findMin(LazySTNode root )
     {
         if (root == null)
@@ -79,6 +94,11 @@ public class LazySearchTree<E extends Comparable< ? super E > >
         return findMin(root.lftChild);
     }
 
+    /**TODO: Implement Lazy deletion
+     *
+     * @param root
+     * @return
+     */
     protected LazySTNode findMax(LazySTNode root )
     {
         if (root == null)
@@ -135,15 +155,21 @@ public class LazySearchTree<E extends Comparable< ? super E > >
         return root;
     }
 
+    /**
+     * Implement TraverseHard
+     * @param func
+     * @param treeNode
+     * @param <F>
+     */
     protected <F extends Traverser<? super E>>
-    void traverse(F func, LazySTNode treeNode)
+    void traverseHard(F func, LazySTNode treeNode)
     {
         if (treeNode == null)
             return;
 
-        traverse(func, treeNode.lftChild);
+        traverseHard(func, treeNode.lftChild);
         func.visit(treeNode.data);
-        traverse(func, treeNode.rtChild);
+        traverseHard(func, treeNode.rtChild);
     }
 
     protected LazySTNode find(LazySTNode root, E x )
@@ -191,6 +217,7 @@ public class LazySearchTree<E extends Comparable< ? super E > >
         // use public access so the tree or other classes can access members
         public LazySTNode lftChild, rtChild;
         public E data;
+        public boolean deleted;
 
         public LazySTNode(E d, LazySTNode lft, LazySTNode rt )
         {
