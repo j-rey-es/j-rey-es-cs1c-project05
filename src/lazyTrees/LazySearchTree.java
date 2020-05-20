@@ -105,9 +105,9 @@ public class LazySearchTree<E extends Comparable< ? super E > >
      */
     public boolean insert( E x )
     {
-        int oldSize = mSizeHard;
+        int oldSize = mSize;
         mRoot = insert(mRoot, x);
-        return (mSizeHard != oldSize);
+        return (mSize != oldSize);
     }
 
     /** TODO Implement soft delete
@@ -192,8 +192,7 @@ public class LazySearchTree<E extends Comparable< ? super E > >
         return findMax(root.rtChild);
     }
 
-    /** TODO: Implement lazy deletion
-     *Private function for public facing pair
+    /**Private function for public facing pair
      *Uses recursive methods to insert a new node
      * @param root LazySTNode, Root node to insert
      * @param x Object, object to be inserted
@@ -205,6 +204,7 @@ public class LazySearchTree<E extends Comparable< ? super E > >
 
         if (root == null)
         {
+            mSize++;
             mSizeHard++;
             return new LazySTNode(x, null, null);
         }
@@ -214,6 +214,11 @@ public class LazySearchTree<E extends Comparable< ? super E > >
             root.lftChild = insert(root.lftChild, x);
         else if ( compareResult > 0 )
             root.rtChild = insert(root.rtChild, x);
+        else if (compareResult == 0 && root.deleted)
+        {
+            root.deleted = false;
+            mSize++;
+        }
 
         return root;
     }
