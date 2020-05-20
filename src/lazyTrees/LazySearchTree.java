@@ -48,7 +48,7 @@ public class LazySearchTree<E extends Comparable< ? super E > >
      * Returns the size of the tree based off hard deletion methods
      * @return int, the number of nodes in the tree based off hard deletion methods
      */
-    public int mSizeHard() {
+    public int sizeHard() {
         return mSizeHard;
     }
 
