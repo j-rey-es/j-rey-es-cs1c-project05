@@ -156,6 +156,7 @@ public class LazySearchTree<E extends Comparable< ? super E > >
         newObject.clear();  // can't point to other's data
 
         newObject.mRoot = cloneSubtree(mRoot);
+        newObject.mSize = mSize;
         newObject.mSizeHard = mSizeHard;
 
         return newObject;
@@ -267,7 +268,6 @@ public class LazySearchTree<E extends Comparable< ? super E > >
             return;
 
         traverseHard(func, treeNode.lftChild);
-        func.visit(treeNode.data);
         traverseHard(func, treeNode.rtChild);
     }
 
@@ -285,7 +285,9 @@ public class LazySearchTree<E extends Comparable< ? super E > >
             return;
 
         traverseSoft(func, treeNode.lftChild);
-        func.visit(treeNode.data);
+        if(!treeNode.deleted){
+            func.visit(treeNode.data);
+        }
         traverseSoft(func, treeNode.rtChild);
     }
 
@@ -300,7 +302,7 @@ public class LazySearchTree<E extends Comparable< ? super E > >
     {
         int compareResult;  // avoid multiple calls to compareTo()
 
-        if (root == null)
+        if (root == null || root.deleted)
             return null;
 
         compareResult = x.compareTo(root.data);
@@ -326,6 +328,7 @@ public class LazySearchTree<E extends Comparable< ? super E > >
         newNode = new LazySTNode
                 (
                         root.data,
+                        root.deleted,
                         cloneSubtree(root.lftChild),
                         cloneSubtree(root.rtChild)
                 );
@@ -342,7 +345,7 @@ public class LazySearchTree<E extends Comparable< ? super E > >
     protected int findHeight(LazySTNode treeNode, int height )
     {
         int leftHeight, rightHeight;
-        if (treeNode == null)
+        if (treeNode == null && !treeNode.deleted)
             return height;
         height++;
         leftHeight = findHeight(treeNode.lftChild, height);
@@ -366,11 +369,12 @@ public class LazySearchTree<E extends Comparable< ? super E > >
          * @param lft LazySTNode, left child node
          * @param rt LazySTNode, right child node
          */
-        public LazySTNode(E d, LazySTNode lft, LazySTNode rt )
+        public LazySTNode(E d, LazySTNode lft, LazySTNode rt, boolean del )
         {
             lftChild = lft;
             rtChild = rt;
             data = d;
+            deleted = del;
         }
 
         /**
@@ -379,7 +383,7 @@ public class LazySearchTree<E extends Comparable< ? super E > >
          */
         public LazySTNode()
         {
-            this(null, null, null);
+            this(null, null, null,false);
         }
     }
 
