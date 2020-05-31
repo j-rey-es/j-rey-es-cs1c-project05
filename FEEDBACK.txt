@@ -1,0 +1,97 @@
+FEEDBACK:
+
+Good start to the implementation of your LazySearchTree class with lazy deletion.
+   However, you are missing key requirements of the project description. 
+   
+
+-1 For future, include additional test cases as required by project description.
+        Next time minus two or three for this.
+
+
+-5 Incomplete implementation of findMin() and findMax()
+   does not correctly traverse the tree of non-deleted nodes.
+   See sample output 1 and 2.
+Suggestion: When searching for the minimum make sure to search
+   both left and right subtrees:
+   
+   // example pseudo-code
+   if (root is null)
+      simply return;
+   otherwise:
+   findMin on left subtree and return node found;
+   check if current root we're at is deleted,
+        if not then return current root;   <--- you are missing this key portion
+   findMin on right subtree and return node found;   <--- you are missing this key portion
+
+   Do the same for findMax() method.
+   
+   
+other comments: 
+For future remove the TODOs before your final submission as it
+   clutters your implementation.
+   
+   -Bita.
+
+
+sample output 1:
+...
+
+at line #3: add tomatoes
+First item: mango:1 
+Last item: tomatoes:1 
+
+
+Update at line #4: buy mango
+"hard" number of unique items (i.e. mSizeHard) = 3
+"soft" number of unique items (i.e. mSize) = 2
+
+Testing traversing "hard" inventory:
+mango:0  
+milk:1  
+tomatoes:1  
+
+
+Testing traversing "soft" inventory:
+milk:1  
+tomatoes:1  
+
+
+
+at line #4: buy mango
+First item: mango:0 
+Last item: tomatoes:1 
+
+
+
+sample output 2:
+...
+
+Update at line #12: buy chicken
+"hard" number of unique items (i.e. mSizeHard) = 8
+"soft" number of unique items (i.e. mSize) = 4
+
+Testing traversing "hard" inventory:
+bread:0  
+chicken:0  
+lemon:1  
+mango:1  
+milk:0  
+soup:0  
+tomatoes:1  
+watermelon:1  
+
+
+Testing traversing "soft" inventory:
+lemon:1  
+mango:1  
+tomatoes:1  
+watermelon:1  
+
+
+
+at line #12: buy chicken
+First item: bread:0 
+Last item: watermelon:1 
+
+
+
