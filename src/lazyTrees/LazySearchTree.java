@@ -110,7 +110,7 @@ public class LazySearchTree<E extends Comparable< ? super E > >
         return (mSize != oldSize);
     }
 
-    /** TODO Implement soft delete
+    /**
      * Public facing, client accessible that removes a new child node using soft deletion
      * Calls private overloaded recursive function
      * @param x E, object to remove
@@ -171,11 +171,15 @@ public class LazySearchTree<E extends Comparable< ? super E > >
      */
     protected LazySTNode findMin(LazySTNode root )
     {
+
         if (root == null)
             return null;
-        if (root.lftChild == null)
+        if(root.lftChild != null)
+            return root.lftChild;
+        if(!root.deleted)
             return root;
-        return findMin(root.lftChild);
+        return findMin(root.rtChild);
+
     }
 
     /** TODO: Implement lazy deletion
@@ -188,9 +192,11 @@ public class LazySearchTree<E extends Comparable< ? super E > >
     {
         if (root == null)
             return null;
-        if (root.rtChild == null)
+        if(root.rtChild != null)
+            return root.rtChild;
+        if(!root.deleted)
             return root;
-        return findMax(root.rtChild);
+        return findMax(root.lftChild);
     }
 
     /**Private function for public facing pair
@@ -228,7 +234,7 @@ public class LazySearchTree<E extends Comparable< ? super E > >
 
      */
 
-    /**TODO: Implement soft deletion
+    /**
      *Private function for public facing pair
      *Uses recursive methods to remove a new node
      * @param root, initial node to search
